@@ -30,6 +30,7 @@ python app/main.py
 
 > You can specify 'HOST' and 'PORT' environment variables
 
+To see API docs visit `{YOUR_URL}/docs`.
 
 ## License
 
