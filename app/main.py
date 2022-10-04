@@ -1,7 +1,7 @@
 from os import getenv
 
 import uvicorn
-from fastapi import FastAPI, HTTPException, UploadFile, status
+from fastapi import FastAPI, HTTPException, Response, UploadFile, status
 from fastapi.responses import StreamingResponse
 from KEK import __version__, exceptions
 from KEK.hybrid import PublicKEK
@@ -28,7 +28,15 @@ async def version():
     }
 
 
-@app.post("/encrypt")
+@app.post(
+    "/encrypt",
+    response_class=Response,
+    responses={
+        200: {
+            "content": {"application/octet-stream": {}}
+        }
+    }
+)
 async def encrypt(input_file: UploadFile, serialized_key: UploadFile):
     key_bytes = await serialized_key.read()
     try:
